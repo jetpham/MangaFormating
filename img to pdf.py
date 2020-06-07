@@ -1,7 +1,7 @@
 from fpdf import FPDF
 import os.path
 from os import path
-chap =
+chap = []
 imagelist = []
 temp = []
 for n in range(len(os.listdir(chap))):

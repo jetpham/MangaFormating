@@ -8,15 +8,17 @@ from os import path
 
 
 def mangaformat():
-    #the manga's folder on the deskto
+    # the manga's folder on the deskto
     f = 'Food'
-    # umm
-    wr = []
+    # all pages that didn't append to a pdf
+    errorPages = []
     # files that have been removed
     removedFiles = []
-    # the paths of every chapter#.pdf in the {manga}ch desktop folder
+    # the paths of every chapter
+    # .pdf in the {manga}ch desktop folder
     paths = []
     # iterate through every volume
+    print('formatting ' + str(f))
     for v in os.listdir('../' + f):
         # the volume folder is renamed to itself but with only numbers
         vn = re.sub('[^0-9^.]', '', v)
@@ -31,11 +33,11 @@ def mangaformat():
                 os.rename(src, dest)
             except:
                 # printing error message, "cant rename old volume to new volume"
-                print('-can\'t rename ' + v + ' to ' + vn)
+                print('├── can\'t rename ' + v + ' to ' + vn)
                 # move onto the next volume
                 continue
         # log the renaming of the volume
-        print('-' + v + '         ' + vn)
+        print('├── ' + v + '         ' + vn)
         # iterate through every chapter in current volume
         for c in os.listdir('../' + f + '/' + vn):
             # the chapter folder is renamed to itself but with only numbers and decimals exanmple: "Chapter 14.5" --> "14.5"
@@ -51,11 +53,11 @@ def mangaformat():
                     os.rename(src, dest)
                 except:
                     # printing error message, "cant rename old chapter to new chapter"
-                    print('--can\'t rename ' + c + ' to ' + cn)
+                    print('│   ├── can\'t rename ' + c + ' to ' + cn)
                     # move onto the next chapter
                     continue
             # log the renaming of the chapter
-            print('--' + c + '  to ' + cn)
+            print('│   ├── ' + c + '  to ' + cn)
             # iterate through every file in current chapter
             for m in os.listdir('../' + f + '/' + vn + '/' + cn):
                 # check if current file is a folder
@@ -70,7 +72,7 @@ def mangaformat():
                     os.remove('../' + f + '/' + vn + '/' + cn + '/' + m)
                     # add the file path to removedFiles
                     removedFiles.append(f + '/' + vn + '/' + cn + '/' + m)
-                    # move onto next file
+                    # move onto next fil
                     continue
                 # takes the 7 characters of the file's name
                 # which in most files includes the file number, the ".",
@@ -92,30 +94,35 @@ def mangaformat():
                 src = '../' + f + '/' + vn + '/' + cn + '/' + m
                 # path of the file with the new name
                 dest = '../' + f + '/' + vn + '/' + cn + '/' + mn
-                #attempt to compress / convert file into .jpg format
+                # attempt to compress / convert file into .jpg format
                 try:
                     # set im to the current file
                     im = Image.open(src)
-                    # im to rgb_im which makes it compatable to be savesd as .jpg
+                    # im to rgb_im which makes it compatible to be saved as .jpg
                     rgb_im = im.convert('RGB')
                     # save rgb_im as .jpg but with the new name
                     rgb_im.save(dest + '.jpg')
                     # remove original file
                     os.remove(src)
+                    print('│   │   ├── ' + m + '  to ' + mn)
                 except:
-                    print('can\'t rename ' + m + ' to ' + mn)
+                    # printing error message, "cant rename or convert old file to new file"
+                    print('│   │   ├── can\'t rename or convert' + m + ' to ' + mn)
             for m in os.listdir('../' + f + '/' + vn + '/' + cn):
-                msize = [int(Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).size[0]), int(Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).size[1])]
+                msize = [int(Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).size[0]),
+                         int(Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).size[1])]
                 if msize[0] > msize[1]:
-                    print(m)
-                    dup = Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).crop((0, 0, int(msize[0] / 2), msize[1]))
+                    print('│   │   ├── ' + str(mn) + ' is a landscape')
+                    dup = Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).crop(
+                        (0, 0, int(msize[0] / 2), msize[1]))
                     dup.save('../' + f + '/' + vn + '/' + cn + '/' + str(int(re.sub('[^0-9]', '', m[-6:]))) + '.5.jpg')
-                    dup = Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).crop((int(msize[0] / 2), 0, msize[0], msize[1]))
+                    dup = Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).crop(
+                        (int(msize[0] / 2), 0, msize[0], msize[1]))
                     dup.save('../' + f + '/' + vn + '/' + cn + '/' + str(int(re.sub('[^0-9]', '', m[-6:]))) + '.jpg')
-                    print((msize[0] / 2, 0, msize[0], msize[1]))
+                    print('│   │   ├── original size: ' + str(msize[0]) + ', ' + str(msize[1]) + '  new size: ' + str(
+                        msize[0] / 2) + ', ' + str(msize[1]))
             chap = '../' + f + '/' + vn + '/' + cn
             imagelist = []
-            temp = []
             for n in range(len(os.listdir(chap))):
                 imagelist.append(chap + '/' + str(n + 1) + '.jpg')
                 try:
@@ -130,24 +137,22 @@ def mangaformat():
                     pdf.add_page()
                     pdf.image(image, None, None, 728, 1048)
                 else:
-                    wr.append(image)
-            print(pdf.page_no())
+                    errorPages.append(image)
+
             # pdf.output(chap + '/' + cn + '.pdf', 'F')
             pdf.output('../' + f + 'ch/' + cn + '.pdf', 'F')
             paths.append('../' + f + 'ch/' + cn + '.pdf')
+            print('│   ├── Page Length: ' + str(pdf.page_no()))
 
-    print('Oops:')
-    for n in wr:
-        print(n)
-    print('gone: ' + str(len(removedFiles)))
-    for n in removedFiles:
-        print(removedFiles)
-    print('done')
+    print('Pages that didn\'t append to a pdf: ' + ', '.join(errorPages))
+    print('# of removed files: ' + str(len(removedFiles)))
+    print('removed files: ' + ', '.join(removedFiles))
     try:
-        open('../' + f + '/' + 'Paths.txt', 'x').write(str(paths))
+        open('../' + f + 'Paths.txt', 'x').write(str(paths))
     except:
-        open('../' + f + '/' + 'Paths.txt', 'w').write(str(paths))
-    print('paths: ' + str(paths))
+        open('../' + f + 'Paths.txt', 'w').write(str(paths))
+    print('paths: ' + ', '.join(paths))
+    print('finished formatting ' + f)
 
 
 mangaformat()
