@@ -40,7 +40,8 @@ def mangaformat():
         print('├── ' + v + '         ' + vn)
         # iterate through every chapter in current volume
         for c in os.listdir('../' + f + '/' + vn):
-            # the chapter folder is renamed to itself but with only numbers and decimals exanmple: "Chapter 14.5" --> "14.5"
+            # the chapter folder is renamed to itself but with only numbers and decimals
+            # example: "Chapter 14.5" --> "14.5"
             cn = re.sub('[^0-9,.]', '', c)
             # skips renaming if the chapter is already formatted properally
             if c != cn:
