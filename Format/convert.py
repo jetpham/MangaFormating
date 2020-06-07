@@ -22,22 +22,7 @@ def convert():
         # iterate through every chapter in current volume
         for chapter in os.listdir(mangaPath + '/' + volume):
             print('│   ├── ' + chapter)
-            # # iterate through every file in current chapter
-            # for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
-            #     # check if current file is a folder
-            #     if path.isdir(mangaPath + '/' + volume + '/' + chapter + '/' + file):
-            #         # remove current file
-            #         os.rmdir(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-            # iterate through every file in current chapter
             for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
-                # # check if the current file is a .bin
-                # if file[-3:] == 'bin':
-                #     # Remove current file
-                #     os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                #     # add the file path to removedFiles
-                #     removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
-                #     # move onto next fil
-                #     continue
                 # takes the 7 characters of the file's name
                 # which in most files includes the file number, the ".",
                 # and the file extension (jpg or png)
@@ -54,7 +39,7 @@ def convert():
                         # im to rgbImage which makes it compatible to be saved as .jpg
                         rgbImage = image.convert('RGB')
                         # save rgbImage as .jpg but with the new name
-                        rgbImage.save(source + '.jpg')
+                        rgbImage.save(source[:-3] + 'jpg')
                         # remove original file
                         os.remove(source)
                         print('│   │   ├── converted: ' + file[:-4])
