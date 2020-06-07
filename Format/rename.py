@@ -1,29 +1,27 @@
 # imports
 import os
 import re
-from fpdf import FPDF
-from PIL import Image
 import os.path
 from os import path
 
 
 def mangaformat():
-    # the manga's folder on the deskto
+    # the manga's folder on the desktop
     manga = 'Food'
     # all pages that didn't append to a pdf
     # files that have been removed
     removedFiles = []
     # iterate through every volume
-    print('renaming ' + str(manga))
-    for volume in os.listdir('../' + manga):
+    print('renaming ' + manga)
+    for volume in os.listdir('../../' + manga):
         # the volume folder is renamed to itself but with only numbers
         newVolume = re.sub('[^0-9^.]', '', volume)
-        # skips renaming if the volume is already formatted properally
+        # skips renaming if the volume is already formatted properly
         if volume != newVolume:
             # the path of the volume
-            source = '../' + manga + '/' + volume
+            source = '../../' + manga + '/' + volume
             # the path of the volume with the new name
-            destination = '../' + manga + '/' + newVolume
+            destination = '../../' + manga + '/' + newVolume
             try:
                 # renaming the volume
                 os.rename(source, destination)
@@ -35,15 +33,15 @@ def mangaformat():
         # log the renaming of the volume
         print('├── ' + volume + '         ' + newVolume)
         # iterate through every chapter in current volume
-        for chapter in os.listdir('../' + manga + '/' + newVolume):
+        for chapter in os.listdir('../../' + manga + '/' + newVolume):
             # the chapter folder is renamed to itself but with only numbers and decimals exanmple: "Chapter 14.5" --> "14.5"
             newChapter = re.sub('[^0-9,.]', '', chapter)
-            # skips renaming if the chapter is already formatted properally
+            # skips renaming if the chapter is already formatted properly
             if chapter != newChapter:
                 # path of the chapter
-                source = '../' + manga + '/' + newVolume + '/' + chapter
+                source = '../../' + manga + '/' + newVolume + '/' + chapter
                 # path of the chapter with the new name
-                destination = '../' + manga + '/' + newVolume + '/' + newChapter
+                destination = '../../' + manga + '/' + newVolume + '/' + newChapter
                 try:
                     # renaming the chapter
                     os.rename(source, destination)
@@ -55,17 +53,17 @@ def mangaformat():
             # log the renaming of the chapter
             print('│   ├── ' + chapter + '  to ' + newChapter)
             # iterate through every file in current chapter
-            for file in os.listdir('../' + manga + '/' + newVolume + '/' + newChapter):
+            for file in os.listdir('../../' + manga + '/' + newVolume + '/' + newChapter):
                 # check if current file is a folder
-                if path.isdir('../' + manga + '/' + newVolume + '/' + newChapter + '/' + file):
+                if path.isdir('../../' + manga + '/' + newVolume + '/' + newChapter + '/' + file):
                     # remove current file
-                    os.rmdir('../' + manga + '/' + newVolume + '/' + newChapter + '/' + file)
+                    os.rmdir('../../' + manga + '/' + newVolume + '/' + newChapter + '/' + file)
             # iterate through every file in current chapter
-            for file in os.listdir('../' + manga + '/' + newVolume + '/' + newChapter):
+            for file in os.listdir('../../' + manga + '/' + newVolume + '/' + newChapter):
                 # check if the current file is a .bin
                 if file[-3:] == 'bin':
                     # Remove current file
-                    os.remove('../' + manga + '/' + newVolume + '/' + newChapter + '/' + file)
+                    os.remove('../../' + manga + '/' + newVolume + '/' + newChapter + '/' + file)
                     # add the file path to removedFiles
                     removedFiles.append(manga + '/' + newVolume + '/' + newChapter + '/' + file)
                     # move onto next fil
@@ -78,28 +76,22 @@ def mangaformat():
                 # which corresponds to the
                 elif re.sub('[^0-9]', '', file[-7:]) != '':
                     # the file is renamed to itself but with only numbers
-                    newFile = str(int(re.sub('[^0-9]', '', file)))
+                    newFile = str(int(re.sub('[^0-9]', '', file))) + file[-4:]
                 else:
                     # remove the file
-                    os.remove('../' + manga + '/' + newVolume + '/' + newChapter + '/' + file)
+                    os.remove('../../' + manga + '/' + newVolume + '/' + newChapter + '/' + file)
                     # add the file path to removedFiles
                     removedFiles.append(manga + '/' + newVolume + '/' + newChapter + '/' + file)
                     # move onto next file
                     continue
                 # path of the file
-                source = '../' + manga + '/' + newVolume + '/' + newChapter + '/' + file
+                source = '../../' + manga + '/' + newVolume + '/' + newChapter + '/' + file
                 # path of the file with the new name
-                destination = '../' + manga + '/' + newVolume + '/' + newChapter + '/' + newFile
+                destination = '../../' + manga + '/' + newVolume + '/' + newChapter + '/' + newFile
                 # attempt to compress / convert file into .jpg format
                 try:
-                    # set im to the current file
-                    image = Image.open(source)
-                    # im to rgb_im which makes it compatible to be saved as .jpg
-                    rgb_im = image.convert('RGB')
-                    # save rgb_im as .jpg but with the new name
-                    rgb_im.save(destination + '.jpg')
-                    # remove original file
-                    os.remove(source)
+                    # renaming the image
+                    os.rename(source, destination)
                     print('│   │   ├── ' + file + '  to ' + newFile)
                 except:
                     # printing error message, "cant rename or convert old file to new file"
