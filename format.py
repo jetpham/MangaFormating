@@ -109,8 +109,9 @@ def mangaformat():
                     # printing error message, "cant rename or convert old file to new file"
                     print('│   │   ├── can\'t rename or convert' + m + ' to ' + mn)
             for m in os.listdir('../' + f + '/' + vn + '/' + cn):
-                msize = [int(Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).size[0]),
-                         int(Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).size[1])]
+                img = Image.open('../' + f + '/' + vn + '/' + cn + '/' + m)
+                msize = [int(Image.open(img).size[0]),
+                         int(Image.open(img).size[1])]
                 if msize[0] > msize[1]:
                     print('│   │   ├── ' + str(mn) + ' is a landscape')
                     dup = Image.open('../' + f + '/' + vn + '/' + cn + '/' + m).crop(
