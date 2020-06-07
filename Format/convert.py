@@ -6,7 +6,7 @@ from os import path
 from PIL import Image
 
 
-def mangaformat():
+def convert():
     # the manga's folder on the desktop
     manga = 'Food'
     user = 'Jet Pham'
@@ -73,4 +73,4 @@ def mangaformat():
     print('finished renaming ' + manga)
 
 
-mangaformat()
+convert()
