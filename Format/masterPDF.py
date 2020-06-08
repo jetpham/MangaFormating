@@ -2,7 +2,7 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 import re
 import ast
 
-Paths = ast.literal_eval(open('../map.txt', 'r').read())
+Paths = ast.literal_eval(open('map.txt', 'r').read())
 
 
 def merge_pdfs():
@@ -20,4 +20,4 @@ def merge_pdfs():
         pdf_writer.write(out)
 
 
-print(Paths)
+

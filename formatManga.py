@@ -3,7 +3,7 @@ from Format import rename
 from Format import convert
 from Format import landscape
 from Format import map
-# from Format import chaptersToPDF
+from Format import chaptersToPDF
 # from Format import masterPDF
 # from Format import clearMap
 
@@ -16,6 +16,6 @@ rename.rename(manga, mangaPath)
 convert.convert(manga, mangaPath)
 landscape.lanscape(manga, mangaPath)
 map.map(manga, mangaPath)
-# chaptersToPDF.chaptersToPDF(manga, mangaPath)
+chaptersToPDF.chaptersToPDF(manga, mangaPath)
 # masterPDF.merge_pdfs()
 # clearMap.clearMap()
