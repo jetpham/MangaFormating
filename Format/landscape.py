@@ -25,7 +25,7 @@ def landscape(manga, mangaPath):
                     dup = Image.open(mangaPath + '/' + volume + '/' + chapter + '/' + file).crop(
                         (int(fileDimentions[0] / 2), 0, fileDimentions[0], fileDimentions[1]))
                     dup.save(mangaPath + '/' + volume + '/' + chapter + '/' +
-                             file[:-4] + '.jpg')
+                             file)
                     print('│   │   │   original size: ' + str(fileDimentions[0]) + ', ' + str(
                         fileDimentions[1]) + '  new size: ' + str(
                         fileDimentions[0] / 2) + ', ' + str(fileDimentions[1]))
