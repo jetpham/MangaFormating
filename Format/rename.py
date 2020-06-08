@@ -5,11 +5,9 @@ import os.path
 from os import path
 
 
-def mangaformat():
+def rename(manga, mangaPath):
     # the manga's folder on the desktop
-    manga = 'Food'
-    user = 'Jet Pham'
-    mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
+
     # all pages that didn't append to a pdf
     # files that have been removed
     removedFiles = []
@@ -104,4 +102,4 @@ def mangaformat():
     print('finished renaming ' + manga)
 
 
-mangaformat()
+

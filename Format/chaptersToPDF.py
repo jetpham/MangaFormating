@@ -5,11 +5,9 @@ import ast
 Paths = ast.literal_eval(open('../map.txt', 'r').read())
 
 
-def chaptersToPDF():
+def chaptersToPDF(manga, mangaPath):
     # the manga's folder on the desktop
-    manga = 'Food'
-    user = 'Jet Pham'
-    mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
+
     errorPages = []
     map = []
     for chapter in Paths:
@@ -23,7 +21,8 @@ def chaptersToPDF():
                 errorPages.append(image)
         pdf.output(mangaPath + 'ch/' + chapter[0][0] + '.pdf', 'F')
         map.append(mangaPath + 'ch/' + chapter[0][0] + '.pdf')
-    open('../map.txt', 'w').write(str(map))
+        print(str(int(chapter[0][1] / Paths[-1][0][1] * 100)) + '%')
+    open('map.txt', 'w').write(str(map))
 
 
-chaptersToPDF()
+

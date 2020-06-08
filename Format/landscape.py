@@ -6,11 +6,9 @@ from os import path
 from PIL import Image
 
 
-def convert():
+def lanscape(manga, mangaPath):
     # the manga's folder on the desktop
-    manga = 'Food'
-    user = 'Jet Pham'
-    mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
+
     # all pages that didn't append to a pdf
     # files that have been removed
     landscapes = []
@@ -49,6 +47,4 @@ def convert():
     print('finished landscaping ' + manga)
 
 
-convert()
 
-# int(re.sub('[^0-9]', '', file[-6:])))

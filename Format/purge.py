@@ -1,4 +1,3 @@
-# imports
 import os
 import re
 import os.path
@@ -6,13 +5,7 @@ from os import path
 from PIL import Image
 
 
-def purge():
-    # the manga's folder on the desktop
-    manga = 'Food'
-    user = 'Jet Pham'
-    mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
-    # all pages that didn't append to a pdf
-    # files that have been removed
+def purge(manga, mangaPath):
     removedFiles = []
     count = [0, 0]
     otherFormats = []
@@ -58,4 +51,4 @@ def purge():
     print('finished purging ' + manga)
 
 
-purge()
+

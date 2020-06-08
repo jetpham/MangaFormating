@@ -6,11 +6,9 @@ from os import path
 from PIL import Image
 
 
-def convert():
+def convert(manga, mangaPath):
     # the manga's folder on the desktop
-    manga = 'Food'
-    user = 'Jet Pham'
-    mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
+
     # all pages that didn't append to a pdf
     # files that have been removed
     removedFiles = []
@@ -58,4 +56,4 @@ def convert():
     print('finished renaming ' + manga)
 
 
-convert()
+
