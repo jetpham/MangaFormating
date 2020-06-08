@@ -8,7 +8,7 @@ def rename(manga, mangaPath):
     removedFiles = []
     print('renaming ' + manga)
     for volume in os.listdir(mangaPath):
-        newVolume = re.sub('[^0-9^.]', '', volume)
+        newVolume = re.sub('[^0-9]', '', volume)
         if volume != newVolume:
             source = mangaPath + '/' + volume
             destination = mangaPath + '/' + newVolume
@@ -19,7 +19,7 @@ def rename(manga, mangaPath):
                 continue
         print('├── ' + volume + '         ' + newVolume)
         for chapter in os.listdir(mangaPath + '/' + newVolume):
-            newChapter = re.sub('[^0-9,.]', '', chapter)
+            newChapter = re.sub('[^0-9,.]', '', chapter[-5:])
             if chapter != newChapter:
                 source = mangaPath + '/' + newVolume + '/' + chapter
                 destination = mangaPath + '/' + newVolume + '/' + newChapter
@@ -30,8 +30,8 @@ def rename(manga, mangaPath):
                     continue
             print('│   ├── ' + chapter + '  to ' + newChapter)
             for file in os.listdir(mangaPath + '/' + newVolume + '/' + newChapter):
-                if re.sub('[^0-9]', '', file[:-7]) != '':
-                    newFile = str(int(re.sub('[^0-9]', '', file))) + file[-4:]
+                if re.sub('[^0-9]', '', file[-7:]) != '':
+                    newFile = str(int(re.sub('[^0-9]', '', file[-7:-4]))) + file[-4:]
                 else:
                     os.remove(mangaPath + '/' + newVolume + '/' + newChapter + '/' + file)
                     removedFiles.append(manga + '/' + newVolume + '/' + newChapter + '/' + file)

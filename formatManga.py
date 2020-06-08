@@ -17,7 +17,7 @@ convert.convert(manga, mangaPath)
 
 from Format import landscape
 
-landscape.lanscape(manga, mangaPath)
+landscape.landscape(manga, mangaPath)
 
 from Format import map
 

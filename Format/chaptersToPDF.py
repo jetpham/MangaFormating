@@ -1,3 +1,4 @@
+import os
 from os import path
 from fpdf import FPDF
 import ast
@@ -10,6 +11,8 @@ def chaptersToPDF(manga, mangaPath, mapPath, width, height):
     # the manga's folder on the desktop
     errorPages = []
     map = []
+    if False if os.path.isdir(mangaPath + 'ch/') else True:
+        os.mkdir(mangaPath + 'ch/')
     for chapter in Paths:
         pdf = FPDF('P', 'mm', (width, height))
         pdf.set_auto_page_break(0)

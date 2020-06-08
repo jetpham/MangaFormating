@@ -21,12 +21,20 @@ def purge(manga, mangaPath):
         for chapter in os.listdir(mangaPath + '/' + volume):
             print('│   ├── ' + chapter)
             for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
-                if path.isdir(mangaPath + '/' + volume + '/' + chapter + '/' + file):
+                if False if any(char.isdigit() for char in file) else True:
+                    os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
+                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
+                    print('has no numbers ' + manga + '/' + volume + '/' + chapter + '/' + file)
+                    continue
+                elif path.isdir(mangaPath + '/' + volume + '/' + chapter + '/' + file):
                     os.rmdir(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                    removedFiles.append(file)
+                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
+                    print('is folder ' + manga + '/' + volume + '/' + chapter + '/' + file)
+                    continue
                 elif file[-3:] == 'bin':
                     os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
                     removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
+                    print('is .bin ' + manga + '/' + volume + '/' + chapter + '/' + file)
                     continue
                 elif file[-3:] == 'jpg':
                     print('│   │   ├── ' + file[:-4] + ' is .jpg')
@@ -34,16 +42,12 @@ def purge(manga, mangaPath):
                 elif file[-3:] == 'png':
                     print('│   │   ├── ' + file[:-4] + ' is .png')
                     count[0] += 1
-                elif path.isdir(mangaPath + '/' + volume + '/' + chapter + '/' + file):
-                    os.rmdir(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
-                elif False if any(char.isdigit() for char in file) else True:
-                    os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
                 else:
                     otherFormats.append(file.split('.')[-1])
                     os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
                     removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
+                    print('other format ' + manga + '/' + volume + '/' + chapter + '/' + file)
+                    continue
     print('# of removed files: ' + str(len(removedFiles)) if str(len(removedFiles)) != '' else '0')
     print('removed files: ' + ', '.join(removedFiles) if str(len(removedFiles)) != '' else 'None')
     print('total images: ' + str(count[0]))

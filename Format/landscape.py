@@ -3,7 +3,7 @@ import os.path
 from PIL import Image
 
 
-def lanscape(manga, mangaPath):
+def landscape(manga, mangaPath):
     landscapes = []
     count = [0, 0]
     print('renaming ' + manga)
