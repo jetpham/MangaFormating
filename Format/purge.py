@@ -1,8 +1,6 @@
 import os
-import re
 import os.path
 from os import path
-from PIL import Image
 
 
 def purge(manga, mangaPath):

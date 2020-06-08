@@ -9,8 +9,8 @@ def sorted_nicely(list):
     return sorted(list, key=alphanum_key)
 
 
-def map(manga, mangaPath):
-    map = []
+def map(manga, mangaPath, mapPath):
+    complex = []
     count = [0, 0]
     print('mapping ' + manga)
     chapterindex = 0
@@ -18,13 +18,13 @@ def map(manga, mangaPath):
         print('├── ' + volume)
         for chapter in sorted_nicely(os.listdir(mangaPath + '/' + volume)):
             print('│   ├── ' + chapter)
-            map.append([[chapter, chapterindex]])
+            complex.append([[chapter, chapterindex]])
             for file in sorted_nicely(os.listdir(mangaPath + '/' + volume + '/' + chapter)):
-                map[chapterindex].append(mangaPath + '/' + volume + '/' + chapter + '/' + file)
+                complex[chapterindex].append(mangaPath + '/' + volume + '/' + chapter + '/' + file)
             chapterindex += 1
     print('total files mapped: ' + str(count[0]))
     print('non jpg images: ' + str(count[1]))
     print('finished renaming ' + manga)
-    for chapter1 in map:
+    for chapter1 in complex:
         print(chapter1)
-    open('map.txt', 'w').write(str(map))
+    open(mapPath, 'w').write(str(complex))

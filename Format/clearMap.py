@@ -1,5 +1,5 @@
-def clearMap():
-    open('../map.txt', 'w').write('')
+def clearMap(mapPath):
+    open(mapPath, 'w').write('')
     print('map cleared')
 
 

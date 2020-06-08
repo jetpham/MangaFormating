@@ -1,5 +1,4 @@
 from PyPDF2 import PdfFileReader, PdfFileWriter
-import re
 import ast
 
 Paths = ast.literal_eval(open('../map.txt', 'r').read())
