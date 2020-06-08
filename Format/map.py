@@ -1,7 +1,7 @@
-# imports
 import os
 import os.path
 import re
+
 
 def sorted_nicely(list):
     convert = lambda text: int(text) if text.isdigit() else text
@@ -10,16 +10,12 @@ def sorted_nicely(list):
 
 
 def map(manga, mangaPath):
-    # the manga's folder on the desktop
-
     map = []
     count = [0, 0]
     print('mapping ' + manga)
-    # iterate through every volume
     chapterindex = 0
     for volume in sorted_nicely(os.listdir(mangaPath)):
         print('├── ' + volume)
-        # iterate through every chapter in current volume
         for chapter in sorted_nicely(os.listdir(mangaPath + '/' + volume)):
             print('│   ├── ' + chapter)
             map.append([[chapter, chapterindex]])
@@ -32,5 +28,3 @@ def map(manga, mangaPath):
     for chapter1 in map:
         print(chapter1)
     open('map.txt', 'w').write(str(map))
-
-

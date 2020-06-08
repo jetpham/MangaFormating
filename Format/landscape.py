@@ -1,4 +1,3 @@
-# imports
 import os
 import re
 import os.path
@@ -7,17 +6,11 @@ from PIL import Image
 
 
 def lanscape(manga, mangaPath):
-    # the manga's folder on the desktop
-
-    # all pages that didn't append to a pdf
-    # files that have been removed
     landscapes = []
     count = [0, 0]
     print('renaming ' + manga)
-    # iterate through every volume
     for volume in os.listdir(mangaPath):
         print('├── ' + volume)
-        # iterate through every chapter in current volume
         for chapter in os.listdir(mangaPath + '/' + volume):
             print('│   ├── ' + chapter)
             for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
@@ -45,6 +38,3 @@ def lanscape(manga, mangaPath):
     print('Landscapes: ' + ', '.join(landscapes) if str(len(landscapes)) != '' else 'None')
     print('total images: ' + str(count[0]))
     print('finished landscaping ' + manga)
-
-
-

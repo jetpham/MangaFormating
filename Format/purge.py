@@ -18,26 +18,17 @@ def purge(manga, mangaPath):
         return final_list
 
     print('purging ' + manga)
-    # iterate through every volume
     for volume in os.listdir(mangaPath):
         print('├── ' + volume)
-        # iterate through every chapter in current volume
         for chapter in os.listdir(mangaPath + '/' + volume):
             print('│   ├── ' + chapter)
-            # iterate through every file in current chapter
             for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
-                # check if current file is a folder
                 if path.isdir(mangaPath + '/' + volume + '/' + chapter + '/' + file):
-                    # remove current file
                     os.rmdir(mangaPath + '/' + volume + '/' + chapter + '/' + file)
                     removedFiles.append(file)
-                # check if the current file is a .bin
                 elif file[-3:] == 'bin':
-                    # Remove current file
                     os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                    # add the file path to removedFiles
                     removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
-                    # move onto next fil
                     continue
                 elif file[-3:] == 'jpg':
                     print('│   │   ├── ' + file[:-4] + ' is .jpg')
@@ -49,6 +40,3 @@ def purge(manga, mangaPath):
     print('total images: ' + str(count[0]))
     print('other found formats: ' + ', '.join(removeDuplicates(otherFormats)))
     print('finished purging ' + manga)
-
-
-
