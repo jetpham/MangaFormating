@@ -31,8 +31,19 @@ def purge(manga, mangaPath):
                 elif file[-3:] == 'jpg':
                     print('│   │   ├── ' + file[:-4] + ' is .jpg')
                     count[0] += 1
+                elif file[-3:] == 'png':
+                    print('│   │   ├── ' + file[:-4] + ' is .png')
+                    count[0] += 1
+                elif path.isdir(mangaPath + '/' + volume + '/' + chapter + '/' + file):
+                    os.rmdir(mangaPath + '/' + volume + '/' + chapter + '/' + file)
+                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
+                elif False if any(char.isdigit() for char in file) else True:
+                    os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
+                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
                 else:
                     otherFormats.append(file.split('.')[-1])
+                    os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
+                    removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
     print('# of removed files: ' + str(len(removedFiles)) if str(len(removedFiles)) != '' else '0')
     print('removed files: ' + ', '.join(removedFiles) if str(len(removedFiles)) != '' else 'None')
     print('total images: ' + str(count[0]))

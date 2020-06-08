@@ -30,14 +30,7 @@ def rename(manga, mangaPath):
                     continue
             print('│   ├── ' + chapter + '  to ' + newChapter)
             for file in os.listdir(mangaPath + '/' + newVolume + '/' + newChapter):
-                if path.isdir(mangaPath + '/' + newVolume + '/' + newChapter + '/' + file):
-                    os.rmdir(mangaPath + '/' + newVolume + '/' + newChapter + '/' + file)
-            for file in os.listdir(mangaPath + '/' + newVolume + '/' + newChapter):
-                if file[-3:] == 'bin':
-                    os.remove(mangaPath + '/' + newVolume + '/' + newChapter + '/' + file)
-                    removedFiles.append(manga + '/' + newVolume + '/' + newChapter + '/' + file)
-                    continue
-                elif re.sub('[^0-9]', '', file[-7:]) != '':
+                if re.sub('[^0-9]', '', file[:-7]) != '':
                     newFile = str(int(re.sub('[^0-9]', '', file))) + file[-4:]
                 else:
                     os.remove(mangaPath + '/' + newVolume + '/' + newChapter + '/' + file)

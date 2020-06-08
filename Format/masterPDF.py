@@ -1,10 +1,11 @@
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import ast
 
-Paths = ast.literal_eval(open('../map.txt', 'r').read())
 
 
-def merge_pdfs(mangaPath):
+
+def merge_pdfs(mangaPath, mapPath):
+    Paths = ast.literal_eval(open(mapPath, 'r').read())
     pdf_writer = PdfFileWriter()
     print(type(Paths))
     for path in Paths:
