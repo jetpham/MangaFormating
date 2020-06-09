@@ -1,4 +1,4 @@
-manga = 'Stone'
+manga = 'k'
 user = 'Jet Pham'
 mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
 mapPath = 'map.txt'
@@ -25,7 +25,7 @@ map.map(manga, mangaPath, mapPath)
 
 from Format import chaptersToPDF
 
-chaptersToPDF.chaptersToPDF(manga, mangaPath, mapPath, 895, 1300)
+chaptersToPDF.chaptersToPDF(manga, mangaPath, mapPath, 850, 1200)
 
 from Format import masterPDF
 
