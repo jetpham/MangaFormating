@@ -12,24 +12,22 @@ def landscape(manga, mangaPath):
         for chapter in os.listdir(mangaPath + '/' + volume):
             print('│   ├── ' + chapter)
             for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
-                image = Image.open(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                fileDimentions = [image.size[0],
-                                  image.size[1]]
-                if fileDimentions[0] > fileDimentions[1]:
-                    landscapes.append(volume + '/' + chapter + '/' + file)
-                    print('│   │   ├── ' + str(file) + ' is a landscape')
-                    dup = Image.open(mangaPath + '/' + volume + '/' + chapter + '/' + file).crop(
-                        (0, 0, int(fileDimentions[0] / 2), fileDimentions[1]))
-                    dup.save(mangaPath + '/' + volume + '/' + chapter + '/' +
-                             file[:-4] + '.5.jpg')
-                    dup = Image.open(mangaPath + '/' + volume + '/' + chapter + '/' + file).crop(
-                        (int(fileDimentions[0] / 2), 0, fileDimentions[0], fileDimentions[1]))
-                    dup.save(mangaPath + '/' + volume + '/' + chapter + '/' +
-                             file)
-                    print('│   │   │   original size: ' + str(fileDimentions[0]) + ', ' + str(
-                        fileDimentions[1]) + '  new size: ' + str(
-                        fileDimentions[0] / 2) + ', ' + str(fileDimentions[1]))
+                image = mangaPath + '/' + volume + '/' + chapter + '/' + file
+                if round(Image.open(image).size[0] / Image.open(image).size[1], 2) > 0.8:
+                    landscapes.append(image)
                     count[0] += 2
+                    dup = Image.open(image).crop(
+                        (0, 0, int(Image.open(image).size[0] / 2), Image.open(image).size[1]))
+                    dup.save(image[:-4] + '.5.jpg')
+                    dup = Image.open(image).crop(
+                        (int(Image.open(image).size[0] / 2), 0, Image.open(image).size[0],
+                         Image.open(image).size[1]))
+                    dup.save(image)
+                    print('│   │   │  ' + str(
+                        round(Image.open(image).size[0] / Image.open(image).size[1], 2)) + ' - ' + str(
+                        Image.open(image).size[0]) + ', ' + str(
+                        Image.open(image).size[1]) + ' - ' + str(
+                        Image.open(image).size[0] / 2) + ', ' + str(Image.open(image).size[1]) + ' - ' + image)
                 else:
                     count[0] += 1
     print('# of landscape files: ' + str(len(landscapes)) if str(len(landscapes)) != '' else '0')

@@ -6,7 +6,7 @@ from PIL import Image
 def convert(manga, mangaPath):
     removedFiles = []
     count = [0, 0]
-    print('renaming ' + manga)
+    print('converting ' + manga)
     for volume in os.listdir(mangaPath):
         print('├── ' + volume)
         for chapter in os.listdir(mangaPath + '/' + volume):

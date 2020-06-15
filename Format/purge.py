@@ -21,7 +21,7 @@ def purge(manga, mangaPath):
         for chapter in os.listdir(mangaPath + '/' + volume):
             print('│   ├── ' + chapter)
             for file in os.listdir(mangaPath + '/' + volume + '/' + chapter):
-                if False if any(char.isdigit() for char in file) else True:
+                if not any(char.isdigit() for char in file):
                     os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
                     removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
                     print('has no numbers ' + manga + '/' + volume + '/' + chapter + '/' + file)
@@ -34,7 +34,7 @@ def purge(manga, mangaPath):
                 elif file[-3:] == 'bin':
                     os.remove(mangaPath + '/' + volume + '/' + chapter + '/' + file)
                     removedFiles.append(manga + '/' + volume + '/' + chapter + '/' + file)
-                    print('is .bin ' + manga + '/' + volume + '/' + chapter + '/' + file)
+                    print('│   │   ├── ' + file[:-4] + ' is .bin')
                     continue
                 elif file[-3:] == 'jpg':
                     print('│   │   ├── ' + file[:-4] + ' is .jpg')

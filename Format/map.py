@@ -25,7 +25,7 @@ def map(manga, mangaPath, mapPath):
             complex.append([[chapter, chapterindex]])
             for file in sort_files(os.listdir(mangaPath + '/' + volume + '/' + chapter)):
                 complex[chapterindex].append(mangaPath + '/' + volume + '/' + chapter + '/' + file)
-                print(sorted_nicely(os.listdir(mangaPath + '/' + volume + '/' + chapter)))
+            print(sorted_nicely(os.listdir(mangaPath + '/' + volume + '/' + chapter)))
             chapterindex += 1
     print('total files mapped: ' + str(count[0]))
     print('non jpg images: ' + str(count[1]))

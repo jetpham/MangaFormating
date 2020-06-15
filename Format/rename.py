@@ -19,7 +19,8 @@ def rename(manga, mangaPath):
                 continue
         print('├── ' + volume + '         ' + newVolume)
         for chapter in os.listdir(mangaPath + '/' + newVolume):
-            newChapter = re.sub('[^0-9,.]', '', chapter[-5:])
+            newChapter = re.sub('[^0-9^.]', '', chapter).strip('.')
+            print('asdfasdf     ' + newChapter)
             if chapter != newChapter:
                 source = mangaPath + '/' + newVolume + '/' + chapter
                 destination = mangaPath + '/' + newVolume + '/' + newChapter
@@ -30,8 +31,8 @@ def rename(manga, mangaPath):
                     continue
             print('│   ├── ' + chapter + '  to ' + newChapter)
             for file in os.listdir(mangaPath + '/' + newVolume + '/' + newChapter):
-                if re.sub('[^0-9]', '', file[-7:]) != '':
-                    newFile = str(int(re.sub('[^0-9]', '', file[-7:-4]))) + file[-4:]
+                if re.sub('[^0-9]', '', file) != '':
+                    newFile = re.sub('[^0-9]', '', file[:-4]).lstrip('0') + file[-4:]
                 else:
                     os.remove(mangaPath + '/' + newVolume + '/' + newChapter + '/' + file)
                     removedFiles.append(manga + '/' + newVolume + '/' + newChapter + '/' + file)
