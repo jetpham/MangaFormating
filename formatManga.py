@@ -1,7 +1,6 @@
 import os
 manga = 'KomiNew'
-user = 'Jet Pham'
-mangaPath = 'C:/Users/' + user + '/Desktop/' + manga
+mangaPath = '%USERPROFILE%/Desktop/' + manga
 mapPath = 'map.txt'
 
 from Format import purge
